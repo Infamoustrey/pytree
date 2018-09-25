@@ -23,13 +23,16 @@ directory = Path(args.directory)
 def printItemsRecursively(path):
     for child in path.iterdir():
         if child.is_dir():
+            # Check if object is a hidden directory
             if str(child)[0] == '.':
+                # Check flag to verify we want to print hidden directories and files
                 if args.a:
                     print(child.resolve())
                     printItemsRecursively(child)
             else:
                 print(child.resolve())
                 printItemsRecursively(child)
+         # Check if object is a file and if we want to print out files based on flag
         elif child.is_file and not args.d:
             print(child.resolve())
 
