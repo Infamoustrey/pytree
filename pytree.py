@@ -19,19 +19,20 @@ args = parser.parse_args()
 
 directory = Path(args.directory)
  
-def printSubDirectories(path):
+# Recursively print files/directories based on options
+def printItemsRecursively(path):
     for child in path.iterdir():
         if child.is_dir():
             if str(child)[0] == '.':
                 if args.a:
                     print(child.resolve())
-                    printSubDirectories(child)
+                    printItemsRecursively(child)
             else:
                 print(child.resolve())
-                printSubDirectories(child)
+                printItemsRecursively(child)
         elif child.is_file and not args.d:
             print(child.resolve())
 
-
+# Make sure it's a valid directory
 if directory.exists():
-    printSubDirectories(directory)
+    printItemsRecursively(directory)
